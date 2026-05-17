@@ -298,12 +298,12 @@
             for (let i = 0; i < MAX_HAND_CARDS; i++) {
                 const cardContainer = hPanel.CreateVisualElement(cardsGrid); await cardContainer.Async();
                 cardContainer.SetStyles({
-                    display: 'none', width: '180px', height: '230px', backgroundColor: 'rgba(51, 51, 51, 1)', paddingTop: '10px', paddingRight: '10px', paddingBottom: '10px', paddingLeft: '10px',
+                    display: 'none', width: '180px', height: '210px', backgroundColor: 'rgba(51, 51, 51, 1)', paddingTop: '10px', paddingRight: '10px', paddingBottom: '10px', paddingLeft: '10px',
                     borderRadius: '12px', borderWidth: '4px', borderColor: 'rgba(170, 170, 170, 1)', flexDirection: 'column',
                     alignItems: 'flex-start', marginTop: '5px', marginRight: '10px', marginBottom: '10px', marginLeft: '5px'
                 });
                 const cardLabel = hPanel.CreateLabel("", cardContainer); await cardLabel.Async();
-                cardLabel.SetStyles({ backgroundColor: 'rgba(0,0,0,0)', width: '100%', height: '100%', color: '#000000', fontSize: '28px', fontWeight: 'bold', textAlign: 'center' });
+                cardLabel.SetStyles({ backgroundColor: 'rgba(0,0,0,0)', width: '100%', height: '100%', color: '#000000', fontSize: '30px', fontWeight: 'bold', textAlign: 'center' });
                 cardContainer.OnClick(() => this.onCardClick(i));
                 cardUIs.push({ container: cardContainer, label: cardLabel });
             }
