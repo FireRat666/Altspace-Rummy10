@@ -549,7 +549,7 @@ When someone goes out, everyone else counts the points left in their hand. (Lowe
 
         getCardColor(card) {
             if (!card) return 'rgba(153, 153, 153, 1)';
-            if (card.type === "wild") return 'rgba(167, 167, 167, 1)';
+            if (card.type === "wild") return 'rgba(255, 215, 0, 1)';
             if (card.type === "skip") return 'rgba(167, 167, 167, 1)';
             switch (card.color) {
                 case 'red': return 'rgba(255, 0, 0, 1)';
@@ -558,6 +558,36 @@ When someone goes out, everyone else counts the points left in their hand. (Lowe
                 case 'yellow': return 'rgba(255, 255, 0, 1)';
                 default: return 'rgba(223, 223, 223, 1)';
             }
+        }
+
+        // Helper function to map card colors to hex codes for UI text
+        getHexColor(colorName) {
+            switch (colorName) {
+                case 'red': return '#FF0000';
+                case 'blue': return '#0077FF';
+                case 'green': return '#00FF00';
+                case 'yellow': return '#FFFF00';
+                case 'black': return '#000000';
+                default: return '#FFFFFF';
+            }
+        }
+
+        // Helper function to sort cards for display
+        sortCardsForDisplay(cards) {
+            return [...cards].sort((a, b) => {
+                const typeOrder = { 'number': 1, 'skip': 2, 'wild': 3 };
+                if (typeOrder[a.type] !== typeOrder[b.type]) {
+                    return typeOrder[a.type] - typeOrder[b.type];
+                }
+
+                if (a.type === 'number' && b.type === 'number') {
+                    const valA = parseInt(a.value);
+                    const valB = parseInt(b.value);
+                    if (valA !== valB) return valA - valB;
+                    return a.color.localeCompare(b.color);
+                }
+                return 0; // Maintain relative order for same type (e.g., multiple wilds)
+            });
         }
 
         isHost() {
@@ -1330,10 +1360,21 @@ When someone goes out, everyone else counts the points left in their hand. (Lowe
                     const p = players[id];
                     if (p.completedRoundThisHand && p.laidDownCards && p.laidDownCards.length > 0) {
                         hasLaidDown = true;
-                        tableText += `[${p.name.toUpperCase()}] - Round ${p.currentRound}\n`;
+                        tableText += `<color=#FFFFFF>[${p.name.toUpperCase()}]</color> - Round ${p.currentRound}\n`;
                         p.laidDownCards.forEach((group, idx) => {
-                            const cardsStr = group.map(c => c.type === 'wild' ? 'WILD' : (c.type === 'skip' ? 'SKIP' : c.value + c.color[0].toUpperCase())).join(' ');
-                            tableText += `  Group ${idx + 1}: ${cardsStr}\n`;
+                            const roundReqs = ROUNDS.find(r => r.id === p.currentRound)?.reqs;
+                            const groupReqType = roundReqs?.[idx]?.type; 
+
+                            // Sort the group for better display
+                            const sortedGroup = this.sortCardsForDisplay(group);
+
+                            const cardsStr = sortedGroup.map(c => {
+                                if (c.type === 'wild') return `<color=#FFD700>WILD</color>`; // Gold for wildcards
+                                if (c.type === 'skip') return `<color=#bababa>SKIP</color>`; // Grey for skip cards
+                                const hexColor = this.getHexColor(c.color);
+                                return `<color=${hexColor}>${c.value}${c.color[0].toUpperCase()}</color>`;
+                            }).join(' ');
+                            tableText += `  Group ${idx + 1} (${groupReqType}): ${cardsStr}\n`;
                         });
                         tableText += "\n";
                     }
