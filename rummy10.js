@@ -113,13 +113,13 @@
             this.audioTracker[soundFile] = now;
 
             const soundMap = {
-                "join": "https://uno.firer.at/Assets/playerJoin.ogg",
-                "leave": "https://uno.firer.at/Assets/playerKick.ogg",
-                "start": "https://uno.firer.at/Assets/gameStart.ogg",
-                "play_card": "https://uno.firer.at/Assets/card_flick.ogg",
-                "draw_card": "https://uno.firer.at/Assets/card_flick.ogg",
-                "win": "https://uno.firer.at/Assets/fanfare with pop.ogg",
-                "pass": "https://uno.firer.at/Assets/ding%20ding.ogg"
+                "join": "https://rummy10.firer.at/Assets/playerJoin.ogg",
+                "leave": "https://rummy10.firer.at/Assets/playerKick.ogg",
+                "start": "https://rummy10.firer.at/Assets/gameStart.ogg",
+                "play_card": "https://rummy10.firer.at/Assets/card_flick.ogg",
+                "draw_card": "https://rummy10.firer.at/Assets/card_flick.ogg",
+                "win": "https://rummy10.firer.at/Assets/fanfare with pop.ogg",
+                "pass": "https://rummy10.firer.at/Assets/ding%20ding.ogg"
             };
             const url = soundMap[soundFile];
             if (!url) {
