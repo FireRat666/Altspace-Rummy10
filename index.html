@@ -1,9 +1,99 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+    <!-- WEB PAGE HEAD START -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#00ff44">
+    <title>Rummy10 | Altspace &amp; Banter Game | FireR.at</title>
+    <meta name="description" content="Synced multiplayer Rummy10 table. Add it to an AltspaceVR (altvr.app) world or a Banter space.">
     <meta property="og:title" content="Rummy10">
     <meta property="og:description" content="Rummy10 by FireRat, for Altspace and Banter.">
+    <meta property="og:url" content="https://rummy10.firer.at/">
+    <meta property="og:image" content="https://firer.at/files/FireRat-Logo-V2.png">
+    <link rel="canonical" href="https://rummy10.firer.at/">
+    <link rel="icon" href="https://firer.at/files/favicon.ico" type="image/x-icon">
+    <script>
+      // In Altspace or Banter this page is the space itself, so the web page part is hidden.
+      (function () {
+        var hide = function () { document.documentElement.classList.add('in-space'); };
+        if (window.isBanter || window.BS) hide();
+        window.addEventListener('bs-loaded', hide);
+      })();
+    </script>
+    <link rel="stylesheet" href="https://firer.at/pages/nstyle.css">
+    <script src="https://firer.at/scripts/RandomBG.js"></script>
+    <style>
+      .in-space .fire-page, .in-space body::before, .in-space body::after { display: none !important; }
+      .fire-page #guide ul, .fire-page .info-block ul, .fire-page .info-block ol { color: var(--text-secondary); margin: 0 0 1.25rem 1.4rem; }
+      .fire-page li { margin-bottom: 0.4rem; }
+      .fire-page .info-block { margin-bottom: 3rem; }
+      .fire-page pre.diagram { cursor: default; }
+      .fire-page pre.diagram::before { content: none; }
+      .fire-page footer { text-align: center; }
+    </style>
+    <!-- WEB PAGE HEAD END -->
   </head>
   <body>
+<!-- WEB PAGE START: shown in a normal browser, hidden in Altspace and Banter -->
+<div class="fire-page">
+  <div class="ambient-glow-2"></div>
+  <div class="container">
+    <header>
+      <span class="eyebrow">Altspace &amp; Banter game</span>
+      <h1><span class="text-gradient">Rummy10</span></h1>
+      <p>A synced multiplayer Rummy10 table for 2 to 10 players. Made for <strong>SideQuest / AltspaceVR</strong> worlds, and it also works in <strong>Banter</strong>.</p>
+<p>There is no server: players stay in sync through the space's shared state, and the game is plain static files served from <a href="https://rummy10.firer.at">rummy10.firer.at</a>.</p>
+    </header>
+
+    <nav>
+      <a href="https://firer.at/games.html" class="buttonG buttonss buttonActive">&larr; All games</a>
+      <a href="https://firer.at/" class="buttonss buttonMain">FireR.at</a>
+      <a href="https://github.com/FireRat666/Banter-Rummy10" class="buttonW buttonss" target="_blank">GitHub</a>
+      <a href="https://ko-fi.com/FireRat666" class="buttonGY buttonss" target="_blank">Ko-fi</a>
+    </nav>
+
+    <main>
+      <section id="guide">
+        <h2>Add it to an Altspace world</h2>
+                <ul>
+          <li><strong>On the website:</strong> edit your world on <a href="https://altvr.app" target="_blank">altvr.app</a>, open <strong>Snippets</strong> on the left, choose <strong>All</strong>, then pick <strong>Rummy10</strong>.</li>
+          <li><strong>In Unity:</strong> add an empty GameObject, click <strong>Add Component &gt; BS &gt; Snippet</strong> and type <code>rummy10</code>.</li>
+        </ul>
+
+        <h2>Add it with a script tag</h2>
+        <p>Paste this into a Banter space's HTML, or into an Altspace world's <code>Assets/WebRoot/index.html</code> (outside the snippet section). Give each copy its own <code>instance</code> to have more than one game in a space.</p>
+        <div class="code-header">Script tag</div>
+        <pre><code>&lt;script src=&quot;https://rummy10.firer.at/rummy10.js&quot; position=&quot;0 0 2&quot; rotation=&quot;0 180 0&quot; instance=&quot;lobby-rummy10&quot;&gt;&lt;/script&gt;</code></pre>
+        <p>All the settings are listed on <a href="https://github.com/FireRat666/Banter-Rummy10#settings" target="_blank">GitHub</a>.</p>
+      </section>
+
+      <section class="info-block">
+        <h2>Features</h2>
+        <ul><li>Hands and turns handled for you</li><li>Host migration and disconnect handling</li></ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>Synced multiplayer Rummy10 table. Open <a href="https://rummy10.firer.at">rummy10.firer.at</a> as a space in Altspace or Banter to try it.</p>
+      <p>&copy; <span class="fire-year"></span> <a href="https://firer.at/">FireR.at</a></p>
+    </footer>
+  </div>
+  <script>
+    document.querySelectorAll('.fire-year').forEach(el => { el.textContent = new Date().getFullYear(); });
+    document.querySelectorAll('.fire-page pre:not(.diagram)').forEach(pre => {
+      pre.addEventListener('click', async () => {
+        const header = pre.previousElementSibling;
+        try {
+          await navigator.clipboard.writeText(pre.innerText);
+          if (header) { const t = header.textContent; header.textContent = 'Copied!'; setTimeout(() => { header.textContent = t; }, 2000); }
+        } catch (e) { console.error('Copy failed', e); }
+      });
+    });
+  </script>
+</div>
+<!-- WEB PAGE END -->
       <script src="/rummy10.js" debug="true" position="0 0 2" instance="example2"></script>
       <script>
         async function createFloor() {
